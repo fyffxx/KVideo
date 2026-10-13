@@ -66,7 +66,7 @@ export const VideoCard = memo<VideoCardProps>(({
                     }}
                 >
                     {/* Poster */}
-                    <div className="relative aspect-[2/3] bg-[color-mix(in_srgb,var(--glass-bg)_50%,transparent)] rounded-[var(--radius-2xl)] overflow-hidden">
+                    <div className="relative aspect-[2/3] bg-[color-mix(in_srgb,var(--glass-bg)_50%,transparent)] rounded-[var(--radius-2xl)] overflow-hidden" style={{ minHeight: 260 }}>
                         {video.vod_pic ? (
                             <img
                                 src={video.vod_pic}

@@ -49,7 +49,7 @@ export const MovieCard = memo(function MovieCard({ movie, onMovieClick }: MovieC
       onMouseLeave={(e) => (e.currentTarget.style.zIndex = '1')}
     >
       <Card hover={false} className="p-0 h-full shadow-[0_2px_8px_var(--shadow-color)] hover:shadow-[0_8px_24px_var(--shadow-color)] transition-shadow duration-200 ease-out" blur={false}>
-        <div className="relative aspect-[2/3] bg-[var(--glass-bg)] rounded-[var(--radius-2xl)]">
+        <div className="relative aspect-[2/3] bg-[var(--glass-bg)] rounded-[var(--radius-2xl)]" style={{ minHeight: 260 }}>
           {!imageError ? (
             <img
               src={coverSrc}

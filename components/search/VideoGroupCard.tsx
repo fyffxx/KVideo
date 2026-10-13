@@ -121,7 +121,7 @@ export const VideoGroupCard = memo<VideoGroupCardProps>(({
                     }}
                 >
                     {/* Poster */}
-                    <div className="relative aspect-[2/3] bg-[color-mix(in_srgb,var(--glass-bg)_50%,transparent)] rounded-[var(--radius-2xl)] overflow-hidden">
+                    <div className="relative aspect-[2/3] bg-[color-mix(in_srgb,var(--glass-bg)_50%,transparent)] rounded-[var(--radius-2xl)] overflow-hidden" style={{ minHeight: 260 }}>
                         {representative.vod_pic ? (
                             <img
                                 src={representative.vod_pic}
