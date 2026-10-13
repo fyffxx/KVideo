@@ -19,43 +19,18 @@ import { VideoTogetherController } from '@/components/VideoTogetherController';
 import { shouldEnableVercelAnalytics } from '@/lib/config/deployment';
 import { getRuntimeFeatures } from "@/lib/server/runtime-features";
 import { resolveSiteIconSrc } from '@/lib/server/site-icon';
-import fs from 'fs';
-import path from 'path';
 
 const DEFAULT_VIDEOTOGETHER_SCRIPT_URL =
   'https://fastly.jsdelivr.net/gh/VideoTogether/VideoTogether@latest/release/extension.website.user.js';
 
-// Server Component specifically for reading env/file (async for best practices)
+// Server Component specifically for reading env (edge-compatible, no fs)
 async function AdKeywordsWrapper() {
   let keywords: string[] = [];
 
   try {
-    // 1. Try reading from file (Docker runtime support)
-    const keywordsFile = process.env.AD_KEYWORDS_FILE;
-    if (keywordsFile) {
-      // Resolve absolute path or relative to CWD
-      const filePath = path.isAbsolute(keywordsFile)
-        ? keywordsFile
-        : path.join(process.cwd(), keywordsFile);
-
-      try {
-        const content = await fs.promises.readFile(filePath, 'utf-8');
-        keywords = content.split(/[\n,]/).map((k: string) => k.trim()).filter((k: string) => k);
-        console.log(`[AdFilter] Loaded ${keywords.length} keywords from file: ${filePath}`);
-      } catch (fileError: unknown) {
-        // Handle file not found (ENOENT) gracefully
-        if ((fileError as NodeJS.ErrnoException).code !== 'ENOENT') {
-          console.warn('[AdFilter] Error reading keywords file:', fileError);
-        }
-      }
-    }
-
-    // 2. Fallback to Env var (Runtime or Build time)
-    if (keywords.length === 0) {
-      const envKeywords = process.env.AD_KEYWORDS || process.env.NEXT_PUBLIC_AD_KEYWORDS;
-      if (envKeywords) {
-        keywords = envKeywords.split(/[\n,]/).map((k: string) => k.trim()).filter((k: string) => k);
-      }
+    const envKeywords = process.env.AD_KEYWORDS || process.env.NEXT_PUBLIC_AD_KEYWORDS;
+    if (envKeywords) {
+      keywords = envKeywords.split(/[\n,]/).map((k: string) => k.trim()).filter((k: string) => k);
     }
   } catch (error) {
     console.warn('[AdFilter] Failed to load keywords:', error);

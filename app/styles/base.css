@@ -172,6 +172,12 @@ body.tv-mode {
 body.tv-mode [data-focusable] {
     min-height: 48px;
     min-width: 48px;
+    content-visibility: visible !important;
+}
+
+body.tv-mode [data-focusable] img {
+    visibility: visible !important;
+    opacity: 1 !important;
 }
 
 body.tv-mode [class*="grid"] {

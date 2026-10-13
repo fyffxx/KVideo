@@ -127,6 +127,7 @@ export function TagList({
                     <div className="relative flex-shrink-0">
                         <button
                             type="button"
+                            data-focusable
                             onClick={recommendTag.onSelect}
                             className={`
                                 px-6 py-2.5 text-sm font-semibold transition-all whitespace-nowrap rounded-[var(--radius-full)] cursor-pointer select-none flex items-center gap-1.5

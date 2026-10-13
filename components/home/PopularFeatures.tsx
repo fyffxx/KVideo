@@ -105,6 +105,7 @@ export function PopularFeatures({ onSearch }: PopularFeaturesProps) {
             />
 
             <button
+              data-focusable
               onClick={() => setContentType('movie')}
               className={`relative z-10 py-2.5 text-sm font-bold transition-colors duration-300 cursor-pointer flex justify-center items-center ${contentType === 'movie' ? 'text-white' : 'text-[var(--text-color-secondary)] hover:text-[var(--text-color)]'
                 }`}
@@ -112,6 +113,7 @@ export function PopularFeatures({ onSearch }: PopularFeaturesProps) {
               电影
             </button>
             <button
+              data-focusable
               onClick={() => setContentType('tv')}
               className={`relative z-10 py-2.5 text-sm font-bold transition-colors duration-300 cursor-pointer flex justify-center items-center ${contentType === 'tv' ? 'text-white' : 'text-[var(--text-color-secondary)] hover:text-[var(--text-color)]'
                 }`}
