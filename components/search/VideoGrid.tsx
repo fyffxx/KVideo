@@ -131,8 +131,9 @@ export const VideoGrid = memo(function VideoGrid({
   // Memoize the click handler
   const handleCardClick = useCallback((e: React.MouseEvent, videoId: string, videoUrl: string) => {
     const isMobile = window.innerWidth < 1024;
+    const isTv = typeof document !== 'undefined' && !!document.body && document.body.classList.contains('tv-mode');
 
-    if (isMobile) {
+    if (isMobile || isTv) {
       if (activeCardId === videoId) {
         window.location.href = videoUrl;
       } else {
