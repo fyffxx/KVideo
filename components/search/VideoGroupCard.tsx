@@ -124,7 +124,7 @@ export const VideoGroupCard = memo<VideoGroupCardProps>(({
                     <div className="relative aspect-[2/3] bg-[color-mix(in_srgb,var(--glass-bg)_50%,transparent)] rounded-[var(--radius-2xl)] overflow-hidden">
                         {representative.vod_pic ? (
                             <img
-                                src={representative.vod_pic.replace(/^http:\/\//i, 'https://')}
+                                src={representative.vod_pic}
                                 alt={name}
                                 className="absolute inset-0 w-full h-full object-cover rounded-[var(--radius-2xl)]"
                                 loading="eager"

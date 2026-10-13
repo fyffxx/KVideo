@@ -131,6 +131,7 @@ export function useSpatialNavigation(enabled: boolean) {
         // Focus the first element
         (focusableElements[0] as HTMLElement).focus();
         e.preventDefault();
+        console.log('[TV-NAV] initial focus ->', (focusableElements[0] as HTMLElement).textContent?.slice(0, 12));
         return;
       }
 
@@ -139,6 +140,9 @@ export function useSpatialNavigation(enabled: boolean) {
         (best as HTMLElement).focus();
         best.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         e.preventDefault();
+        console.log('[TV-NAV]', direction, 'cand=', focusableElements.length, 'from=', (currentFocused as HTMLElement).textContent?.slice(0, 12), 'to=', (best as HTMLElement).textContent?.slice(0, 12));
+      } else {
+        console.log('[TV-NAV]', direction, 'cand=', focusableElements.length, 'NO-CAND from=', (currentFocused as HTMLElement).textContent?.slice(0, 12));
       }
     } else if (e.key === 'Enter') {
       // Trigger click on focused element

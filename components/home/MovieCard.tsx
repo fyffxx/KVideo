@@ -24,9 +24,9 @@ interface MovieCardProps {
 export const MovieCard = memo(function MovieCard({ movie, onMovieClick }: MovieCardProps) {
   const [imageError, setImageError] = useState(false);
   const [fallbackError, setFallbackError] = useState(false);
-  // Force HTTPS for posters so a secure page never blocks http images
-  // (Android WebView blocks mixed content by default).
-  const coverSrc = movie.cover.replace(/^http:\/\//i, 'https://');
+  // Use the poster URL as-is. Many Chinese video source sites only serve
+  // posters over http; the TV shell allows mixed content, so keep original scheme.
+  const coverSrc = movie.cover;
 
   return (
     <Link

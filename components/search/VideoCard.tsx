@@ -69,7 +69,7 @@ export const VideoCard = memo<VideoCardProps>(({
                     <div className="relative aspect-[2/3] bg-[color-mix(in_srgb,var(--glass-bg)_50%,transparent)] rounded-[var(--radius-2xl)] overflow-hidden">
                         {video.vod_pic ? (
                             <img
-                                src={video.vod_pic.replace(/^http:\/\//i, 'https://')}
+                                src={video.vod_pic}
                                 alt={video.vod_name}
                                 className="absolute inset-0 w-full h-full object-cover rounded-[var(--radius-2xl)]"
                                 loading="eager"
