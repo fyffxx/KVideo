@@ -40,7 +40,9 @@ export function useHlsPlayer({
         let extraBlobs: string[] = [];
 
         // Check if HLS is supported natively (Safari, Mobile Chrome)
-        const isNativeHlsSupported = video.canPlayType('application/vnd.apple.mpegurl');
+        // Android TV / WebView: canPlayType often misreports; Android's MediaPlayer supports HLS natively.
+        const isNativeHlsSupported = video.canPlayType('application/vnd.apple.mpegurl') ||
+            /Android TV|wv/i.test(typeof navigator !== 'undefined' ? (navigator.userAgent || '') : '');
 
         // Check if MSE is available (required by HLS.js)
         const isMSESupported = Hls.isSupported();
