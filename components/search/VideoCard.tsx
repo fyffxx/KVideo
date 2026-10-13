@@ -2,7 +2,6 @@
 
 import { memo } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Icons } from '@/components/ui/Icon';
@@ -69,14 +68,12 @@ export const VideoCard = memo<VideoCardProps>(({
                     {/* Poster */}
                     <div className="relative aspect-[2/3] bg-[color-mix(in_srgb,var(--glass-bg)_50%,transparent)] rounded-[var(--radius-2xl)] overflow-hidden">
                         {video.vod_pic ? (
-                            <Image
-                                src={video.vod_pic}
+                            <img
+                                src={video.vod_pic.replace(/^http:\/\//i, 'https://')}
                                 alt={video.vod_name}
-                                fill
-                                className="object-cover rounded-[var(--radius-2xl)]"
-                                sizes="(max-width: 640px) 33vw, (max-width: 1024px) 20vw, 16vw"
+                                className="absolute inset-0 w-full h-full object-cover rounded-[var(--radius-2xl)]"
                                 loading="eager"
-                                unoptimized
+                                decoding="async"
                                 referrerPolicy="no-referrer"
                                 onError={(e) => {
                                     const target = e.currentTarget as HTMLImageElement;
@@ -89,13 +86,11 @@ export const VideoCard = memo<VideoCardProps>(({
                                 }}
                             />
                         ) : (
-                            <Image
+                            <img
                                 src="/placeholder-poster.svg"
                                 alt={video.vod_name}
-                                fill
-                                className="object-cover rounded-[var(--radius-2xl)]"
-                                sizes="(max-width: 640px) 33vw, (max-width: 1024px) 20vw, 16vw"
-                                unoptimized
+                                className="absolute inset-0 w-full h-full object-cover rounded-[var(--radius-2xl)]"
+                                loading="eager"
                             />
                         )}
 

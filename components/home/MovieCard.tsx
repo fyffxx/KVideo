@@ -4,7 +4,6 @@
  */
 
 import { memo, useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { Card } from '@/components/ui/Card';
 import { Icons } from '@/components/ui/Icon';
@@ -25,6 +24,9 @@ interface MovieCardProps {
 export const MovieCard = memo(function MovieCard({ movie, onMovieClick }: MovieCardProps) {
   const [imageError, setImageError] = useState(false);
   const [fallbackError, setFallbackError] = useState(false);
+  // Force HTTPS for posters so a secure page never blocks http images
+  // (Android WebView blocks mixed content by default).
+  const coverSrc = movie.cover.replace(/^http:\/\//i, 'https://');
 
   return (
     <Link
@@ -49,25 +51,21 @@ export const MovieCard = memo(function MovieCard({ movie, onMovieClick }: MovieC
       <Card hover={false} className="p-0 h-full shadow-[0_2px_8px_var(--shadow-color)] hover:shadow-[0_8px_24px_var(--shadow-color)] transition-shadow duration-200 ease-out" blur={false}>
         <div className="relative aspect-[2/3] bg-[var(--glass-bg)] rounded-[var(--radius-2xl)]">
           {!imageError ? (
-            <Image
-              src={movie.cover}
+            <img
+              src={coverSrc}
               alt={movie.title}
-              fill
-              className="object-cover transition-transform duration-300 group-hover:scale-105 rounded-[var(--radius-2xl)]"
-              sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105 rounded-[var(--radius-2xl)]"
               loading="eager"
-              unoptimized
+              decoding="async"
               referrerPolicy="no-referrer"
               onError={() => setImageError(true)}
             />
           ) : !fallbackError ? (
-            <Image
+            <img
               src="/placeholder-poster.svg"
               alt={movie.title}
-              fill
-              className="object-cover rounded-[var(--radius-2xl)]"
-              sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
-              unoptimized
+              className="absolute inset-0 w-full h-full object-cover rounded-[var(--radius-2xl)]"
+              loading="eager"
               onError={() => setFallbackError(true)}
             />
           ) : (

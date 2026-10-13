@@ -216,8 +216,11 @@ export const settingsStore = {
         }
       });
 
-      // Filter out invalid sources (missing baseUrl etc)
-      const validSources = (Array.isArray(parsed.sources) ? parsed.sources : getDefaultSources())
+      // Filter out invalid sources (missing baseUrl etc).
+      // If the stored list is empty, fall back to the built-in default sources
+      // so a fresh install (e.g. Android TV box) always has working sources.
+      const storedSources = Array.isArray(parsed.sources) ? parsed.sources : getDefaultSources();
+      const validSources = (storedSources.length > 0 ? storedSources : getDefaultSources())
         .filter((s: any) => s && s.id && s.name && s.baseUrl);
 
       const validPremiumSources = (Array.isArray(parsed.premiumSources) ? parsed.premiumSources : getDefaultPremiumSources())

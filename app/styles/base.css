@@ -178,6 +178,7 @@ body.tv-mode [data-focusable] {
 body.tv-mode [data-focusable] img {
     visibility: visible !important;
     opacity: 1 !important;
+    display: block !important;
 }
 
 body.tv-mode [class*="grid"] {

@@ -7,7 +7,6 @@
 
 import { memo, useMemo } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Icons } from '@/components/ui/Icon';
@@ -124,14 +123,12 @@ export const VideoGroupCard = memo<VideoGroupCardProps>(({
                     {/* Poster */}
                     <div className="relative aspect-[2/3] bg-[color-mix(in_srgb,var(--glass-bg)_50%,transparent)] rounded-[var(--radius-2xl)] overflow-hidden">
                         {representative.vod_pic ? (
-                            <Image
-                                src={representative.vod_pic}
+                            <img
+                                src={representative.vod_pic.replace(/^http:\/\//i, 'https://')}
                                 alt={name}
-                                fill
-                                className="object-cover rounded-[var(--radius-2xl)]"
-                                sizes="(max-width: 640px) 33vw, (max-width: 1024px) 20vw, 16vw"
+                                className="absolute inset-0 w-full h-full object-cover rounded-[var(--radius-2xl)]"
                                 loading="eager"
-                                unoptimized
+                                decoding="async"
                                 referrerPolicy="no-referrer"
                                 onError={(e) => {
                                     const target = e.currentTarget as HTMLImageElement;
