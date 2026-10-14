@@ -74,7 +74,9 @@ export function PopularFeatures({ onSearch }: PopularFeaturesProps) {
   const handleMovieClick = (movie: DoubanMovie) => {
     // On TV, a single click on a home card goes straight to playback:
     // jump to the home page with auto=1, which searches and auto-enters the player.
-    if (typeof document !== 'undefined' && document.body && document.body.classList.contains('tv-mode')) {
+    const isTvShell = typeof navigator !== 'undefined' && /Android TV/i.test(navigator.userAgent);
+    const isTvMode = typeof document !== 'undefined' && !!document.body && document.body.classList.contains('tv-mode');
+    if (isTvShell || isTvMode) {
       window.location.href = '/?q=' + encodeURIComponent(movie.title) + '&auto=1';
       return;
     }
