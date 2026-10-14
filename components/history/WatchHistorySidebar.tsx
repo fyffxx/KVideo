@@ -97,7 +97,7 @@ export function WatchHistorySidebar({ isPremium = false }: { isPremium?: boolean
         }}
         onPointerDown={onPointerDown}
         style={floatingStyle}
-        className="fixed z-40 bg-[var(--glass-bg)] backdrop-blur-[8px] saturate-[120%] border border-[var(--glass-border)] rounded-[var(--radius-2xl)] shadow-[var(--shadow-md)] p-3 hover:scale-105 transition-transform duration-200 cursor-pointer touch-none select-none"
+        className="fixed tv-history-btn z-40 bg-[var(--glass-bg)] backdrop-blur-[8px] saturate-[120%] border border-[var(--glass-border)] rounded-[var(--radius-2xl)] shadow-[var(--shadow-md)] p-3 hover:scale-105 transition-transform duration-200 cursor-pointer touch-none select-none"
         aria-label="打开观看历史"
         title="点击打开观看历史，拖动可调整位置"
       >

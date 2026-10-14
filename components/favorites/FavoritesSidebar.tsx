@@ -99,7 +99,7 @@ export function FavoritesSidebar({ isPremium = false }: { isPremium?: boolean })
                 }}
                 onPointerDown={onPointerDown}
                 style={floatingStyle}
-                className="fixed z-40 bg-[var(--glass-bg)] backdrop-blur-[8px] saturate-[120%] border border-[var(--glass-border)] rounded-[var(--radius-2xl)] shadow-[var(--shadow-md)] p-3 hover:scale-105 transition-transform duration-200 cursor-pointer touch-none select-none"
+                className="fixed tv-fav-btn z-40 bg-[var(--glass-bg)] backdrop-blur-[8px] saturate-[120%] border border-[var(--glass-border)] rounded-[var(--radius-2xl)] shadow-[var(--shadow-md)] p-3 hover:scale-105 transition-transform duration-200 cursor-pointer touch-none select-none"
                 aria-label="打开收藏夹"
                 title="点击打开收藏夹，拖动可调整位置"
             >
