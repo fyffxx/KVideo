@@ -6,6 +6,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { useHistory } from '@/lib/store/history-store';
 import { Icons } from '@/components/ui/Icon';
 import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
@@ -97,20 +98,38 @@ export function WatchHistorySidebar({ isPremium = false }: { isPremium?: boolean
 
   return (
     <>
-      {/* Toggle Button */}
-      <button
-        onClick={(event) => {
-          if (consumeSyntheticClick(event)) return;
-          setIsOpen(true);
-        }}
-        onPointerDown={isTv ? undefined : onPointerDown}
-        style={isTv ? { left: '34rem', top: '.4rem' } : floatingStyle}
-        className="fixed tv-history-btn z-40 bg-[var(--glass-bg)] backdrop-blur-[8px] saturate-[120%] border border-[var(--glass-border)] rounded-[var(--radius-2xl)] shadow-[var(--shadow-md)] p-3 hover:scale-105 transition-transform duration-200 cursor-pointer touch-none select-none"
-        aria-label="打开观看历史"
-        title="点击打开观看历史"
-      >
-        <Icons.History size={24} className="text-[var(--text-color)]" />
-      </button>
+      {/* Toggle Button - portal to body in TV mode so no transformed ancestor breaks fixed positioning */}
+      {isTv && typeof document !== 'undefined'
+        ? createPortal(
+            <button
+              onClick={(event) => {
+                if (consumeSyntheticClick(event)) return;
+                setIsOpen(true);
+              }}
+              style={{ left: '34rem', top: '.4rem' }}
+              className="fixed tv-history-btn z-40 bg-[var(--glass-bg)] backdrop-blur-[8px] saturate-[120%] border border-[var(--glass-border)] rounded-[var(--radius-2xl)] shadow-[var(--shadow-md)] p-3 hover:scale-105 transition-transform duration-200 cursor-pointer touch-none select-none"
+              aria-label="打开观看历史"
+              title="点击打开观看历史"
+            >
+              <Icons.History size={24} className="text-[var(--text-color)]" />
+            </button>,
+            document.body
+          )
+        : (
+            <button
+              onClick={(event) => {
+                if (consumeSyntheticClick(event)) return;
+                setIsOpen(true);
+              }}
+              onPointerDown={onPointerDown}
+              style={floatingStyle}
+              className="fixed tv-history-btn z-40 bg-[var(--glass-bg)] backdrop-blur-[8px] saturate-[120%] border border-[var(--glass-border)] rounded-[var(--radius-2xl)] shadow-[var(--shadow-md)] p-3 hover:scale-105 transition-transform duration-200 cursor-pointer touch-none select-none"
+              aria-label="打开观看历史"
+              title="点击打开观看历史，拖动可调整位置"
+            >
+              <Icons.History size={24} className="text-[var(--text-color)]" />
+            </button>
+          )}
 
       {/* Backdrop */}
       {isOpen && (
