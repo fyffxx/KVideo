@@ -68,7 +68,7 @@ body.tv-mode .kv-poster { height: 0 !important; min-height: 0 !important; paddin
 body.tv-mode .kv-poster img { position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; object-fit: cover !important; }
 /* TV round16: history button pinned to top row (right of search button), favorites button hidden */
 body.tv-mode .tv-fav-btn { display: none !important; }
-body.tv-mode .tv-history-btn { position: fixed !important; top: 0.4rem !important; left: 17rem !important; right: auto !important; transform: none !important; z-index: 1500 !important; padding: 0.55rem !important; }
+body.tv-mode .tv-history-btn { position: fixed !important; top: 0.4rem !important; left: 34rem !important; right: auto !important; transform: none !important; z-index: 1500 !important; padding: 0.55rem !important; }
 
 /* ---- TV focus highlight (shell injects .kv-tv-focus) ---- */
 body.tv-mode .kv-tv-focus,
