@@ -67,6 +67,18 @@ export function Navbar({ onReset, isPremiumMode = false }: NavbarProps) {
                         </Link>
 
                         <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+                            {/* History - TV: open history sidebar via global event */}
+                            <button
+                                onClick={() => {
+                                    try { window.dispatchEvent(new CustomEvent('kvideo-open-history')); } catch (e) {}
+                                }}
+                                className="tv-nav-history w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center rounded-[var(--radius-full)] bg-[var(--glass-bg)] border border-[var(--glass-border)] text-[var(--text-color)] hover:bg-[color-mix(in_srgb,var(--accent-color)_10%,transparent)] transition-all duration-200 cursor-pointer"
+                                aria-label="观看历史"
+                                title="观看历史"
+                                data-focusable
+                            >
+                                <Icons.History size={20} />
+                            </button>
                             {/* IPTV Link - only show if user has iptv_access or no auth configured */}
                             {iptvEnabled && hasPermission('iptv_access') && (
                             <Link

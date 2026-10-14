@@ -26,6 +26,13 @@ export function WatchHistorySidebar({ isPremium = false }: { isPremium?: boolean
     obs.observe(document.body, { attributes: true, attributeFilter: ['class'] });
     return () => obs.disconnect();
   }, []);
+
+  // TV mode: open sidebar from the navbar history button via global event
+  useEffect(() => {
+    const open = () => setIsOpen(true);
+    window.addEventListener('kvideo-open-history', open);
+    return () => window.removeEventListener('kvideo-open-history', open);
+  }, []);
   const [deleteConfirm, setDeleteConfirm] = useState<{
     isOpen: boolean;
     showIdentifier?: string;
