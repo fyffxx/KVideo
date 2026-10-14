@@ -62,7 +62,10 @@ body.tv-mode .grid.gap-3,
 body.tv-mode .grid.gap-4,
 body.tv-mode .grid.gap-6 { gap: 0.5rem !important; }
 /* Force 6 poster columns on TV widescreen */
-body.tv-mode .grid.grid-cols-2 { grid-template-columns: repeat(6, minmax(0, 1fr)) !important; }
+body.tv-mode .grid.grid-cols-2 { grid-template-columns: repeat(8, minmax(0, 1fr)) !important; }
+/* TV round15: poster cards 4:3 landscape (WebView83 has no aspect-ratio; use padding-top trick) */
+body.tv-mode .aspect-\[2\/3\] { aspect-ratio: auto !important; height: 0 !important; min-height: 0 !important; padding-top: 75% !important; }
+body.tv-mode .aspect-\[2\/3\] img { position: absolute !important; }
 
 /* ---- TV focus highlight (shell injects .kv-tv-focus) ---- */
 body.tv-mode .kv-tv-focus,
