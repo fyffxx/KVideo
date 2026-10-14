@@ -42,3 +42,12 @@ body.tv-mode .grid.gap-4,
 body.tv-mode .grid.gap-6 { gap: 0.5rem !important; }
 /* Force 6 poster columns on TV widescreen */
 body.tv-mode .grid.grid-cols-2 { grid-template-columns: repeat(6, minmax(0, 1fr)) !important; }
+
+/* ---- TV focus highlight (shell injects .kv-tv-focus) ---- */
+body.tv-mode .kv-tv-focus,
+.kv-tv-focus {
+  outline: 5px solid #ffb400 !important;
+  outline-offset: 2px !important;
+  box-shadow: 0 0 0 4px rgba(255,180,0,.45), 0 0 32px rgba(255,180,0,.6) !important;
+  border-radius: 8px !important;
+}
