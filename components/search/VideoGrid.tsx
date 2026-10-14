@@ -70,6 +70,21 @@ export const VideoGrid = memo(function VideoGrid({
     return () => unsubscribe();
   }, [pathname, searchParams, videos.length]);
 
+  // TV "auto-play": when the URL carries ?auto=1 (home card single-click on TV),
+  // jump straight into the first result's player once results arrive.
+  useEffect(() => {
+    const isTv = typeof document !== 'undefined' && !!document.body && document.body.classList.contains('tv-mode');
+    if (!isTv || videos.length === 0) return;
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('auto') !== '1') return;
+    params.delete('auto');
+    const clean = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+    window.history.replaceState(null, '', clean);
+    const first = videos[0];
+    const p = new URLSearchParams({ id: String(first.vod_id), source: first.source, title: first.vod_name });
+    window.location.href = '/player?' + p.toString();
+  }, [videos]);
+
   if (videos.length === 0) {
     return null;
   }
@@ -133,7 +148,14 @@ export const VideoGrid = memo(function VideoGrid({
     const isMobile = window.innerWidth < 1024;
     const isTv = typeof document !== 'undefined' && !!document.body && document.body.classList.contains('tv-mode');
 
-    if (isMobile || isTv) {
+    if (isTv) {
+      // TV: a single click goes straight to the player — no double-confirm step.
+      e.preventDefault();
+      window.location.href = videoUrl;
+      return;
+    }
+
+    if (isMobile) {
       if (activeCardId === videoId) {
         window.location.href = videoUrl;
       } else {
