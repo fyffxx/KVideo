@@ -33,6 +33,15 @@ body.tv-mode .mb-10 { margin-bottom: 0.4rem !important; }
 body.tv-mode .w-80 { width: 14rem !important; }
 body.tv-mode .py-2\.5 { padding-top: 0.3rem !important; padding-bottom: 0.3rem !important; }
 body.tv-mode .p-1 { padding: 0.25rem !important; }
+/* TV: hide the tag-manager bar ("管理标签" button row) */
+body.tv-mode .tag-manager-bar { display: none !important; }
+/* TV: type toggle row ultra slim */
+body.tv-mode .tv-type-toggle { margin-bottom: 0.15rem !important; }
+body.tv-mode .tv-type-toggle .w-80 { width: 10.5rem !important; }
+body.tv-mode .tv-type-toggle button { padding-top: 0.15rem !important; padding-bottom: 0.15rem !important; font-size: 0.8rem !important; }
+/* TV: tag list pinned high & ultra slim */
+body.tv-mode .tv-tag-list { margin-bottom: 0.1rem !important; padding-top: 0.1rem !important; padding-bottom: 0.1rem !important; }
+body.tv-mode .tv-tag-list button { padding-top: 0.25rem !important; padding-bottom: 0.25rem !important; font-size: 0.85rem !important; }
 
 /* ---- Poster wall: fill the screen ---- */
 body.tv-mode main { max-width: 100% !important; padding-left: 0.6rem !important; padding-right: 0.6rem !important; padding-bottom: 1.5rem !important; }
@@ -54,4 +63,19 @@ body.tv-mode .kv-tv-focus,
   border-radius: 8px !important;
   position: relative !important;
   z-index: 50 !important;
+}
+/* focus indicator span inserted by shell: absolute golden frame around the element */
+.kv-tv-focus-indicator {
+  position: absolute !important;
+  top: -10px !important;
+  left: -10px !important;
+  right: -10px !important;
+  bottom: -10px !important;
+  border: 6px solid #ffb400 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 0 24px rgba(255,180,0,.7) !important;
+  pointer-events: none !important;
+  z-index: 999 !important;
+  display: block !important;
+  box-sizing: border-box !important;
 }

@@ -48,7 +48,7 @@ export function TagManager({
   return (
     <>
       {/* Management Controls */}
-      <div className="mb-6 flex items-center justify-between">
+      <div className="tag-manager-bar mb-6 flex items-center justify-between">
         <button
           data-focusable
           onClick={onToggleManager}

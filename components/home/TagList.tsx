@@ -116,7 +116,7 @@ export function TagList({
         >
             <div
                 ref={scrollContainerRef}
-                className={`mb-8 flex items-center gap-3 pb-3 pt-2 px-1 scrollbar-hide ${
+                className={`tv-tag-list mb-8 flex items-center gap-3 pb-3 pt-2 px-1 scrollbar-hide ${
                     showTagManager
                         ? 'flex-wrap overflow-visible'
                         : 'overflow-x-auto'
