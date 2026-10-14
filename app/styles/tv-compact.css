@@ -49,7 +49,8 @@ body.tv-mode .p-1 { padding: 0.25rem !important; }
 body.tv-mode .tag-manager-bar { display: none !important; }
 /* TV: type toggle row ultra slim */
 body.tv-mode .tv-type-toggle { margin-bottom: 0.15rem !important; }
-body.tv-mode .tv-type-toggle .w-80 { width: 13rem !important; grid-gap: 0.35rem !important; }
+body.tv-mode .tv-type-toggle .w-80 { width: 14rem !important; display: flex !important; gap: 0.6rem !important; }
+body.tv-mode .tv-type-toggle .w-80 > button { flex: 1 !important; }
 body.tv-mode .tv-type-toggle .absolute.top-1.bottom-1 { display: none !important; }
 body.tv-mode .tv-type-toggle button { padding-top: 0.15rem !important; padding-bottom: 0.15rem !important; font-size: 0.8rem !important; border-radius: 9999px !important; }
 body.tv-mode .tv-type-toggle button.text-white { background: var(--accent-color) !important; }
