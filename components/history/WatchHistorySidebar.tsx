@@ -17,6 +17,14 @@ import { useFloatingButtonPosition } from '@/lib/hooks/useFloatingButtonPosition
 
 export function WatchHistorySidebar({ isPremium = false }: { isPremium?: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isTv, setIsTv] = useState(false);
+  useEffect(() => {
+    const check = () => setIsTv(document.body.classList.contains('tv-mode'));
+    check();
+    const obs = new MutationObserver(check);
+    obs.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    return () => obs.disconnect();
+  }, []);
   const [deleteConfirm, setDeleteConfirm] = useState<{
     isOpen: boolean;
     showIdentifier?: string;
@@ -95,11 +103,11 @@ export function WatchHistorySidebar({ isPremium = false }: { isPremium?: boolean
           if (consumeSyntheticClick(event)) return;
           setIsOpen(true);
         }}
-        onPointerDown={onPointerDown}
-        style={floatingStyle}
+        onPointerDown={isTv ? undefined : onPointerDown}
+        style={isTv ? { left: '34rem', top: '.4rem' } : floatingStyle}
         className="fixed tv-history-btn z-40 bg-[var(--glass-bg)] backdrop-blur-[8px] saturate-[120%] border border-[var(--glass-border)] rounded-[var(--radius-2xl)] shadow-[var(--shadow-md)] p-3 hover:scale-105 transition-transform duration-200 cursor-pointer touch-none select-none"
         aria-label="打开观看历史"
-        title="点击打开观看历史，拖动可调整位置"
+        title="点击打开观看历史"
       >
         <Icons.History size={24} className="text-[var(--text-color)]" />
       </button>
