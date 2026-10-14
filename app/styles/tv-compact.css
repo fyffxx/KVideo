@@ -26,6 +26,18 @@ body.tv-mode .mb-8 { margin-bottom: 0.4rem !important; }
 body.tv-mode .max-w-3xl { max-width: 100% !important; }
 body.tv-mode .max-w-3xl form { max-width: 24rem !important; }
 body.tv-mode input[type="text"] { height: 2.3rem !important; font-size: 0.95rem !important; padding-top: 0.2rem !important; padding-bottom: 0.2rem !important; }
+/* TV round14: float the search box up into the top row (logo | search | icons) */
+body.tv-mode .max-w-7xl.relative {
+  position: absolute !important;
+  top: 0.1rem !important;
+  left: 9rem !important;
+  width: 23rem !important;
+  margin: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  z-index: 1000 !important;
+}
+body.tv-mode .max-w-7xl.relative form { max-width: 100% !important; }
 
 /* ---- Tag / badge rows: tight ---- */
 body.tv-mode .mb-6 { margin-bottom: 0.35rem !important; }
