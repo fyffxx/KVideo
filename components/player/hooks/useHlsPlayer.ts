@@ -46,7 +46,9 @@ export function useHlsPlayer({
         const isNativeHlsSupported = video.canPlayType('application/vnd.apple.mpegurl') || isTvOrWebView;
 
         // Check if MSE is available (required by HLS.js)
-        const isMSESupported = Hls.isSupported();
+        // TV/WebView: hls.js MSE decodes but video frames are dropped (rendering broken on old WebView),
+        // so skip hls.js entirely and use native MediaPlayer HLS.
+        const isMSESupported = Hls.isSupported() && !isTvOrWebView;
 
         if (isMSESupported) {
 
@@ -74,15 +76,14 @@ export function useHlsPlayer({
                 }
             }
 
-            if (!isNativeHlsSupported || isAdFilterEnabled || isTvOrWebView) {
+            if (!isNativeHlsSupported || isAdFilterEnabled) {
                 // If ad filtering is on, we force Hls.js even on native-supported desktop browsers
                 // Exceptions might exist for iOS where MSE is strictly not available, check Hls.isSupported() result carefully.
                 // Hls.isSupported() is false on iOS Safari usually, so this block won't run there.
 
                 const config: any = {
                     // Worker & Performance
-                    // TV/WebView: disable worker — old Android WebView MSE worker decode often produces black video
-                    enableWorker: !isTvOrWebView,
+                    enableWorker: true,
                     lowLatencyMode: false,
 
                     // Buffer Settings
