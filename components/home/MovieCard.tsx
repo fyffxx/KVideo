@@ -3,7 +3,7 @@
  * Displays movie poster, title, and rating
  */
 
-import { memo, useState } from 'react';
+import { memo, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Card } from '@/components/ui/Card';
 import { Icons } from '@/components/ui/Icon';
@@ -24,6 +24,12 @@ interface MovieCardProps {
 export const MovieCard = memo(function MovieCard({ movie, onMovieClick }: MovieCardProps) {
   const [imageError, setImageError] = useState(false);
   const [fallbackError, setFallbackError] = useState(false);
+  const [isTv, setIsTv] = useState(false);
+  useEffect(() => {
+    if (typeof document !== 'undefined' && document.body.classList.contains('tv-mode')) {
+      setIsTv(true);
+    }
+  }, []);
   // Use the poster URL as-is. Many Chinese video source sites only serve
   // posters over http; the TV shell allows mixed content, so keep original scheme.
   const coverSrc = movie.cover;
@@ -49,7 +55,10 @@ export const MovieCard = memo(function MovieCard({ movie, onMovieClick }: MovieC
       onMouseLeave={(e) => (e.currentTarget.style.zIndex = '1')}
     >
       <Card hover={false} className="p-0 h-full shadow-[0_2px_8px_var(--shadow-color)] hover:shadow-[0_8px_24px_var(--shadow-color)] transition-shadow duration-200 ease-out" blur={false}>
-        <div className="relative aspect-[2/3] bg-[var(--glass-bg)] rounded-[var(--radius-2xl)]" style={{ minHeight: 260 }}>
+        <div
+          className={`relative kv-poster ${isTv ? '' : 'aspect-[2/3]'} bg-[var(--glass-bg)] rounded-[var(--radius-2xl)]`}
+          style={isTv ? { paddingTop: '75%' } : { minHeight: 260 }}
+        >
           {!imageError ? (
             <img
               src={coverSrc}
