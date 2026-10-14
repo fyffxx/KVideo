@@ -130,6 +130,20 @@ function PlayerContent() {
     router.replace(`/player?${params.toString()}`, { scroll: false });
   }, [episodeParam, gsKey, isPremium, router, source, title]);
 
+  // Native player (TV shell ExoPlayer) failed to load the stream —
+  // surface that to the page so it auto-switches to the next available source.
+  const switchingRef = useRef(false);
+  useEffect(() => {
+    const onPlaybackFailed = () => {
+      if (switchingRef.current) return;
+      switchingRef.current = true;
+      setTimeout(() => { switchingRef.current = false; }, 4000);
+      handleSourceUnavailable();
+    };
+    (window as any).__kvideoPlaybackFailed = onPlaybackFailed;
+    return () => { (window as any).__kvideoPlaybackFailed = undefined; };
+  }, [handleSourceUnavailable]);
+
   const {
     videoData,
     loading,
