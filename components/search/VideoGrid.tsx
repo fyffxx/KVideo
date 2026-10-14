@@ -72,17 +72,27 @@ export const VideoGrid = memo(function VideoGrid({
 
   // TV "auto-play": when the URL carries ?auto=1 (home card single-click on TV),
   // jump straight into the first result's player once results arrive.
+  // The tv-mode class may be applied slightly after search results arrive on a
+  // fresh page load, so retry until it appears (max 10s).
   useEffect(() => {
-    const isTv = typeof document !== 'undefined' && !!document.body && document.body.classList.contains('tv-mode');
-    if (!isTv || videos.length === 0) return;
+    if (videos.length === 0) return;
     const params = new URLSearchParams(window.location.search);
     if (params.get('auto') !== '1') return;
-    params.delete('auto');
-    const clean = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
-    window.history.replaceState(null, '', clean);
-    const first = videos[0];
-    const p = new URLSearchParams({ id: String(first.vod_id), source: first.source, title: first.vod_name });
-    window.location.href = '/player?' + p.toString();
+    let done = false;
+    const tryJump = () => {
+      if (typeof document === 'undefined' || !document.body || !document.body.classList.contains('tv-mode')) return false;
+      params.delete('auto');
+      const clean = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+      window.history.replaceState(null, '', clean);
+      const first = videos[0];
+      const p = new URLSearchParams({ id: String(first.vod_id), source: first.source, title: first.vod_name });
+      window.location.href = '/player?' + p.toString();
+      done = true;
+      return true;
+    };
+    if (tryJump()) return;
+    const iv = setInterval(() => { if (tryJump() || done) clearInterval(iv); }, 400);
+    setTimeout(() => { if (!done) clearInterval(iv); }, 10000);
   }, [videos]);
 
   if (videos.length === 0) {
