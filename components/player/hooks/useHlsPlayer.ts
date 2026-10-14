@@ -41,11 +41,12 @@ export function useHlsPlayer({
 
         // Check if HLS is supported natively (Safari, Mobile Chrome)
         // Android TV / WebView: canPlayType often misreports; Android's MediaPlayer supports HLS natively.
-        const isNativeHlsSupported = video.canPlayType('application/vnd.apple.mpegurl') ||
-            /Android TV|wv/i.test(typeof navigator !== 'undefined' ? (navigator.userAgent || '') : '');
+        // On TV/WebView we skip hls.js entirely: MSE video decoding is broken on old Android WebViews.
+        const isTvOrWebView = /Android TV|wv/i.test(typeof navigator !== 'undefined' ? (navigator.userAgent || '') : '');
+        const isNativeHlsSupported = video.canPlayType('application/vnd.apple.mpegurl') || isTvOrWebView;
 
         // Check if MSE is available (required by HLS.js)
-        const isMSESupported = Hls.isSupported();
+        const isMSESupported = Hls.isSupported() && !isTvOrWebView;
 
         if (isMSESupported) {
 
@@ -222,7 +223,7 @@ export function useHlsPlayer({
             // If the ad discontinuity is in the master playlist (rare for ads, common for periods), it works.
             // If it's in sub-playlists, it might fail unless we parse and blob those too (complex).
 
-            if (isAdFilterEnabled) {
+            if (isAdFilterEnabled && !isTvOrWebView) {
                 const fetchWithFallback = async (url: string): Promise<string> => {
                     try {
                         const res = await fetch(url);
