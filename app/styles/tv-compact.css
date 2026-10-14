@@ -49,8 +49,10 @@ body.tv-mode .p-1 { padding: 0.25rem !important; }
 body.tv-mode .tag-manager-bar { display: none !important; }
 /* TV: type toggle row ultra slim */
 body.tv-mode .tv-type-toggle { margin-bottom: 0.15rem !important; }
-body.tv-mode .tv-type-toggle .w-80 { width: 10.5rem !important; }
-body.tv-mode .tv-type-toggle button { padding-top: 0.15rem !important; padding-bottom: 0.15rem !important; font-size: 0.8rem !important; }
+body.tv-mode .tv-type-toggle .w-80 { width: 13rem !important; grid-gap: 0.35rem !important; }
+body.tv-mode .tv-type-toggle .absolute.top-1.bottom-1 { display: none !important; }
+body.tv-mode .tv-type-toggle button { padding-top: 0.15rem !important; padding-bottom: 0.15rem !important; font-size: 0.8rem !important; border-radius: 9999px !important; }
+body.tv-mode .tv-type-toggle button.text-white { background: var(--accent-color) !important; }
 /* TV: tag list pinned high & ultra slim */
 body.tv-mode .tv-tag-list { margin-bottom: 0.1rem !important; padding-top: 0.1rem !important; padding-bottom: 0.1rem !important; }
 body.tv-mode .tv-tag-list button { padding-top: 0.25rem !important; padding-bottom: 0.25rem !important; font-size: 0.85rem !important; }
@@ -68,7 +70,8 @@ body.tv-mode .kv-poster { height: 0 !important; min-height: 0 !important; paddin
 body.tv-mode .kv-poster img { position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; object-fit: cover !important; }
 /* TV round16: history button pinned to top row (right of search button), favorites button hidden */
 body.tv-mode .tv-fav-btn { display: none !important; }
-body.tv-mode .tv-history-btn { position: fixed !important; top: 0.4rem !important; left: 34rem !important; right: auto !important; transform: none !important; z-index: 1500 !important; padding: 0.55rem !important; }
+body.tv-mode .tv-history-btn { position: fixed !important; top: 0.4rem !important; left: 34rem !important; right: auto !important; transform: none !important; z-index: 1500 !important; padding: 0.55rem !important; border: 2px solid rgba(255, 180, 0, 0.9) !important; }
+body.tv-mode .tv-history-btn svg { color: #ffb400 !important; }
 
 /* ---- TV focus highlight (shell injects .kv-tv-focus) ---- */
 body.tv-mode .kv-tv-focus,
