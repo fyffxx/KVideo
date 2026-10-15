@@ -77,8 +77,6 @@ export const VideoGrid = memo(function VideoGrid({
   useEffect(() => {
     if (videos.length === 0) return;
     const params = new URLSearchParams(window.location.search);
-    const isTv = typeof document !== 'undefined' && !!document.body && document.body.classList.contains('tv-mode');
-    console.log('[AUTO] v=' + videos.length + ' auto=' + params.get('auto') + ' tv=' + isTv);
     if (params.get('auto') !== '1') return;
     let done = false;
     const tryJump = () => {
